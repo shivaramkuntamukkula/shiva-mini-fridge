@@ -7,6 +7,18 @@ from bluepy import btle
 import matplotlib.pyplot as plt
 import time
 from os import system
+
+from tkinter import *
+
+window = Tk()
+window.geometry('600x600')
+
+window.title("Weights of the minibar")
+
+window.mainloop()
+
+
+
 """value = [0]*30
 
 plt.ylim([0, 256])
