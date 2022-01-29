@@ -1,4 +1,4 @@
-	# Python3 example on Raspberry Pi to handle notification from
+	# GUI Python3 example on Raspberry Pi to handle notification from
 # ESP32 BLE_notify example.
 # To install bluepy for Python3:
 # $ sudo pip3 install bluepy
