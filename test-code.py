@@ -1,4 +1,4 @@
-	# Python3 example on Raspberry Pi to handle notification from
+	# GUI Python3 example on Raspberry Pi to handle notification from
 # ESP32 BLE_notify example.
 # To install bluepy for Python3:
 # $ sudo pip3 install bluepy
@@ -26,7 +26,7 @@ class MyDelegate(btle.DefaultDelegate):
         #print(dir(data))
        # print(data)
         print("The weight readings are :  "+   str(int(data[0])) + " grams\n" )
-        time.sleep(0.6)
+        time.sleep(0.4)
         
   #      value.pop(0)
    #     value.append(data[0])
