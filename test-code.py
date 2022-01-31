@@ -40,7 +40,7 @@ class MyDelegate(btle.DefaultDelegate):
 address = "A4:CF:12:6B:60:1E"
 service_uuid = "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
 char_uuid = "beb5483e-36e1-4688-b7f5-ea07361b26a8"
-#char_uuid_02 = "beb5483e-36e1-4688-b7f5-ea07361b26a9"
+char_uuid_02 = "ppp5483e-36e1-4688-b7f5-ea07361b26a9"
 
 p = btle.Peripheral(address)
 p.setDelegate(MyDelegate())
