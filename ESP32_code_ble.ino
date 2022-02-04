@@ -166,10 +166,19 @@ readings[0];
   
     // notify changed value
     if (deviceConnected) {
-          pCharacteristic->setValue((uint8_t*)&J5, 4);
-          pCharacteristic_02->setValue((uint8_t*)&J7, 4);
+
+      J5=3500;
+          
+        byte lowByte = ((J5 >> 0) & 0xFF);
+     // Now shift the binary number 8 bits to the right  
+        byte highByte = ((J5 >> 8) & 0xFF);
+        pCharacteristic->setValue((uint8_t*)&highByte ,2);
+        delay(100);
+        
+        pCharacteristic->setValue((uint8_t*)&lowByte , 2);
+          
           pCharacteristic->notify();
-          pCharacteristic_02->notify();
+         
         delay(500); // bluetooth stack will go into congestion, if too many packets are sent, in 6 hours test i was able to go as low as 3ms
     }
     // disconnecting
