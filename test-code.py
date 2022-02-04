@@ -7,13 +7,7 @@ from bluepy import btle
 import matplotlib.pyplot as plt
 import time
 from os import system
-"""value = [0]*30
 
-plt.ylim([0, 256])
-plt.plot(value)
-plt.draw()
-plt.pause(0.01)
-"""
 class MyDelegate(btle.DefaultDelegate):
     def __init__(self):
         btle.DefaultDelegate.__init__(self)
@@ -54,13 +48,6 @@ class MyDelegate(btle.DefaultDelegate):
          #   print("\nThe weight reading "+ str(i) +" is  :  "+ str(int(pin)) + "grams\n" )
           #  print("...................")
            # i=i+1
-  #      value.pop(0)
-   #     value.append(data[0])
-    #    plt.clf()
-     #   plt.ylim([0, 256])
-      #  plt.plot(value)
-       # plt.draw()
-        #plt.pause(0.01)
    
 # Initialisation  -------
 address = "A4:CF:12:6B:60:1E"
@@ -96,14 +83,12 @@ p.writeCharacteristic(ch.valHandle + 1, setup_data)
 print("        ")
 # print(ch_data_02) 
 
-print("=== Main Loop ===")
+print("=== Connected to ESP32 of the Minibar-Livello ===")
 
 while True:
     if p.waitForNotifications(1.0): # and p.waitForNotifications02(1.0):
 
-                     
     # handleNotification() was called
           continue
-      
     #    print("Waiting...")
     # Perhaps do something else here
