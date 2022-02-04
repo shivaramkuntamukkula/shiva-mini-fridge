@@ -1,7 +1,7 @@
 # Mini-bar Test-code
 
 This code is being developed and tested for the BLE part of the Minibar project.
-
+the Arduino and the pzthon code are able to send the weight of one Load cell Tag to the raspberry pi from the Esp32 , and the next target will be to achieve to add a new characteristic UUID under the same Service ID  adn send the vale of the other load cell over BLE. 
 ## Getting started
 
 To make it easy for you to get started with GitLab, here's a list of recommended next steps.
