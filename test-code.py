@@ -21,24 +21,31 @@ class MyDelegate(btle.DefaultDelegate):
     def handleNotification(self, cHandle, data):
 		# ... perhaps check cHandle
 		# ... process 'data'  
-        print(data[2])
-        print(data[3])
+        #print(data[2])
+        #print(data[3])
 
-        highbyte7=(data[2])
-        lowbit7=(data[3])
-        w7 = int(str(highbyte7) + str(lowbit7))
-       # print(w)
+        highbyte7=(data[1])
+        lowbit7=(data[0])
+       #w7 = int(str(highbyte7) + str(lowbit7))
+        #print(w7)
         word7=(highbyte7<<8)|lowbit7
         print("the weight of J7  : " +str(word7))
   #-------------------------------------------------------------
-       # print(type(data))
-        # print(dir(data))
+        print(type(data[3]))
+       # print(dir(data[1]))
         highbyte=(data[1])
         lowbit=(data[0])
+       
+        print(data[0])
+        print(data[1])
+        #print(data[2])
+        #print(data[3])
+        
+
         w = int(str(highbyte) + str(lowbit))
        # print(w)
         word=(highbyte<<8)|lowbit
-        print("the weight of J5  : " +str(word))
+        #print("the weight of J5  : " +str(word))
         # full=(data[0])+(data[1])
         #print(full)
         #print(type(full))
