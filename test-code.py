@@ -4,7 +4,7 @@
 # $ sudo pip3 install bluepy
 
 from bluepy import btle
-import matplotlib.pyplot as plt
+
 import time
 from os import system
 
