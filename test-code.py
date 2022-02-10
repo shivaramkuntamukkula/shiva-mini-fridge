@@ -1,10 +1,10 @@
+
 # GUI Python3 example on Raspberry Pi to handle notification from
 # ESP32 BLE_notify example.
 # To install bluepy for Python3:
 # $ sudo pip3 install bluepy
 
 from bluepy import btle
-import matplotlib.pyplot as plt
 import time
 from os import system
 
@@ -13,82 +13,74 @@ class MyDelegate(btle.DefaultDelegate):
         btle.DefaultDelegate.__init__(self)
         # ... initialise here
     def handleNotification(self, cHandle, data):
+
+
 		# ... perhaps check cHandle
-		# ... process 'data'  
-        #print(data[2])
-        #print(data[3])
 
-        highbyte7=(data[1])
-        lowbit7=(data[0])
-       #w7 = int(str(highbyte7) + str(lowbit7))
-        #print(w7)
-        word7=(highbyte7<<8)|lowbit7
-        print("the weight of J7  : " +str(word7))
+		# # ... process 'data'  
+        if(cHandle==0x002a):
+
+            highbyte7=(data[1])
+            lowbit7=(data[0])
+            word7=(highbyte7<<8)|lowbit7
+            print("the weight of J7  : " +str(word7))
+
   #-------------------------------------------------------------
-        print(type(data[3]))
-       # print(dir(data[1]))
-        highbyte=(data[1])
-        lowbit=(data[0])
-       
-        print(data[0])
-        print(data[1])
-        #print(data[2])
-        #print(data[3])
-        
+        elif(cHandle==0x002d):
 
-        w = int(str(highbyte) + str(lowbit))
-       # print(w)
-        word=(highbyte<<8)|lowbit
-        #print("the weight of J5  : " +str(word))
-        # full=(data[0])+(data[1])
-        #print(full)
-        #print(type(full))
-  #i=1
-        #for pin in data:
-         #   print("\nThe weight reading "+ str(i) +" is  :  "+ str(int(pin)) + "grams\n" )
-          #  print("...................")
-           # i=i+1
-   
-# Initialisation  -------
+
+            highbyte=(data[0])
+            lowbit=(data[1])
+         #  print(data[0])
+         # print(data[1])
+
+            word=(highbyte<<8)|lowbit
+            print("the weight of J5  : " +str(word))
+            print("        ")
+
+
+## Initialisation  -------
 address = "A4:CF:12:6B:60:1E"
 service_uuid = "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
 char_uuid = "beb5483e-36e1-4688-b7f5-ea07361b26a8"
-#char2_uuid = "76e69b2f-229d-4c5d-8434-e251a0b96877"
+char_uuid_02 = "dd2ca829-8b7e-4a1a-936e-3409f2c85855"
 
 p = btle.Peripheral(address)
 p.setDelegate(MyDelegate())
 
-# p2 = btle.Peripheral(address)
-# p2.setDelegate(MyDelegate())
+ 
+
+
+
 # Setup to turn notifications on, e.g.
 svc = p.getServiceByUUID(service_uuid)
-# svc2 = p2.getServiceByUUID(service_uuid)
+
+
 ch = svc.getCharacteristics(char_uuid)[0]
-#ch_02 = svc.getCharacteristics(char2_uuid)[0]
+ch_02 = svc.getCharacteristics(char_uuid_02)[0]
 """
 setup_data for bluepy noification-
 """
 setup_data = b"\x01\x00"
-ch.write(setup_data)
-#ch_02.write(setup_data)
+ #ch.write(setup_data)
+
 p.writeCharacteristic(ch.valHandle + 1, setup_data)
-#p.writeCharacteristic(ch_02.valHandle + 1, setup_data)
+p.writeCharacteristic(ch_02.valHandle + 1, setup_data)
 
-# ch_data = p.readCharacteristic(ch.valHandle + 1)
-# ch_data_02 = p2.readCharacteristic(ch_02.valHandle + 1)
+ch_data = p.readCharacteristic(ch.valHandle + 1)
+ch_data_02 = p.readCharacteristic(ch_02.valHandle + 1)
 
-"""print(type(ch_data))"""
-# print(ch_data)
+#print(type(ch_data))
+#print(ch_data)
 
-print("        ")
-# print(ch_data_02) 
+
 
 print("=== Connected to ESP32 of the Minibar-Livello ===")
 
 while True:
-    if p.waitForNotifications(1.0): # and p.waitForNotifications02(1.0):
+    if p.waitForNotifications(0.5):
 
     # handleNotification() was called
-          continue
+        continue
     #    print("Waiting...")
     # Perhaps do something else here
