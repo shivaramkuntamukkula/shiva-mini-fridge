@@ -6,7 +6,7 @@
 
 from bluepy import btle
 import time
-from os import system
+import os 
 
 class MyDelegate(btle.DefaultDelegate):
     def __init__(self):
@@ -24,7 +24,8 @@ class MyDelegate(btle.DefaultDelegate):
             lowbit7=(data[0])
             word7=(highbyte7<<8)|lowbit7
             print("the weight of J7  : " +str(word7))
-
+            
+            
   #-------------------------------------------------------------
         elif(cHandle==0x002d):
 
@@ -37,7 +38,8 @@ class MyDelegate(btle.DefaultDelegate):
             word=(highbyte<<8)|lowbit
             print("the weight of J5  : " +str(word))
             print("        ")
-
+            time.sleep(1)
+            os.system('clear')
 
 ## Initialisation  -------
 address = "A4:CF:12:6B:60:1E"
@@ -79,7 +81,7 @@ print("=== Connected to ESP32 of the Minibar-Livello ===")
 
 while True:
     if p.waitForNotifications(0.5):
-
+       
     # handleNotification() was called
         continue
     #    print("Waiting...")
