@@ -43,8 +43,8 @@ uint8_t value;
 // https://www.uuidgenerator.net/
 
 #define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
-#define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
-#define CHARACTERISTIC_UUID_02 "dd2ca829-8b7e-4a1a-936e-3409f2c85855"
+#define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"    //UUID ffor Scale tag J5
+#define CHARACTERISTIC_UUID_02 "dd2ca829-8b7e-4a1a-936e-3409f2c85855" //UUID for Scale tag J7
 
 class MyServerCallbacks: public BLEServerCallbacks {
     void onConnect(BLEServer* pServer) {
