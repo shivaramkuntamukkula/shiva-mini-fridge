@@ -42,6 +42,9 @@ class MyDelegate(btle.DefaultDelegate):
             os.system('clear')
 
 ## Initialisation  -------
+#
+
+# address = "08:3A:F2:6E:29:CA"
 address = "A4:CF:12:6B:60:1E"
 service_uuid = "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
 char_uuid = "beb5483e-36e1-4688-b7f5-ea07361b26a8"
@@ -80,7 +83,7 @@ ch_data_02 = p.readCharacteristic(ch_02.valHandle + 1)
 print("=== Connected to ESP32 of the Minibar-Livello ===")
 
 while True:
-    if p.waitForNotifications(0.5):
+    if p.waitForNotifications(1.0):
        
     # handleNotification() was called
         continue
