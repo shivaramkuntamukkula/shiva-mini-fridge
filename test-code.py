@@ -8,11 +8,45 @@ from bluepy import btle
 import time
 import os 
 
+
+
+#class LightBlueBean(DefaultDelegate):
+ #   def __init__(self, mac):
+#
+ #   def writeRaw(self, data):
+  #      self.conn.writeCharacteristic(0x0b, data, False)
+
+
+
 class MyDelegate(btle.DefaultDelegate):
     def __init__(self):
         btle.DefaultDelegate.__init__(self)
         # ... initialise here
+     
+#    def write(data,[withResponse=False]):
+ #       data=11
+  #      withResponse=True
+   #     print("write is being called")
+ 
+#    def toSendBLE(self, tosend):
+#        print("to sendble is being called")
+#        self.bytestosend = bytes(tosend, 'utf-8')
+#        self.rqsToSend = True
+#        """
+#        try:
+#            self.ch_Tx.write(bytestosend, True)
+#        except BTLEException:
+#            print("BTLEException");
+#        """
+  
+    def writeCharacteristic(handle,val,withResponse):
+        print(withResponse)
+
+
+
     def handleNotification(self, cHandle, data):
+
+  
 
 
 		# ... perhaps check cHandle
@@ -24,9 +58,10 @@ class MyDelegate(btle.DefaultDelegate):
             lowbit7=(data[0])
             word7=(highbyte7<<8)|lowbit7
             print("the weight of J7  : " +str(word7))
-            
-            
-  #-------------------------------------------------------------
+        
+
+
+ #-------------------------------------------------------------
         elif(cHandle==0x002d):
 
 
@@ -42,7 +77,9 @@ class MyDelegate(btle.DefaultDelegate):
             os.system('clear')
 
 ## Initialisation  -------
-address = "A4:CF:12:6B:60:1E"
+address = "08:3A:F2:6E:29:CA"
+#address = "A4:CF:12:6B:60:1E"
+
 service_uuid = "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
 char_uuid = "beb5483e-36e1-4688-b7f5-ea07361b26a8"
 char_uuid_02 = "dd2ca829-8b7e-4a1a-936e-3409f2c85855"
@@ -66,8 +103,10 @@ setup_data for bluepy noification-
 setup_data = b"\x01\x00"
  #ch.write(setup_data)
 
-p.writeCharacteristic(ch.valHandle + 1, setup_data)
-p.writeCharacteristic(ch_02.valHandle + 1, setup_data)
+#p.writeCharacteristic(ch.valHandle + 1, setup_data)
+#p.writeCharacteristic(ch_02.valHandle + 1, setup_data)
+
+#p.writeCharacteristic(0x0030,0x03, False)
 
 ch_data = p.readCharacteristic(ch.valHandle + 1)
 ch_data_02 = p.readCharacteristic(ch_02.valHandle + 1)
@@ -78,10 +117,19 @@ ch_data_02 = p.readCharacteristic(ch_02.valHandle + 1)
 
 
 print("=== Connected to ESP32 of the Minibar-Livello ===")
-
+zz=0
 while True:
+#    zz=zz+1
+    print("hhhhhhhhhhh")
+    handle=0x0030
+    val="h"
+    g= bytes('start', 'utf-8')
+    p.writeCharacteristic(handle, g)
+    #writeCharacteristic(handle, val, withResponse=True)
+#x    toSendBLE(5)
+    
     if p.waitForNotifications(0.5):
-       
+            
     # handleNotification() was called
         continue
     #    print("Waiting...")
