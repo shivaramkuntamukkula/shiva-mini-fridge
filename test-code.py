@@ -122,9 +122,11 @@ while True:
             p.writeCharacteristic(ch_02.valHandle + 1, setup_data)
             ch_data = p.readCharacteristic(ch.valHandle + 1)
             ch_data_02 = p.readCharacteristic(ch_02.valHandle + 1)
-            g= bytes('start', 'utf-8')
+            g= bytes('WRITE-TEST SUCCESS', 'utf-8')
             p.writeCharacteristic(handle, g)
+            print("WRITE TO ESP CODE LINE PASSED WITHOUT ERROR")
             #if p.waitForNotifications(1.0):
+            time.sleep(1)
             print("inside the try with CVS   "+ str(enb))
             #    continue
             enbs=3
@@ -140,7 +142,8 @@ while True:
     if enbs==3 and enb==2:
         #print("waiting for notification"+str(enb))
         if p.waitForNotifications(1.0):
-            
+            g= bytes('START/STOP CMD', 'utf-8')
+            p.writeCharacteristic(handle, g)            
             continue
     
  #   if p.waitForNotifications(1.0):
