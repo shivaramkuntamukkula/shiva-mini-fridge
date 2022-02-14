@@ -77,6 +77,7 @@ class MyDelegate(btle.DefaultDelegate):
             os.system('clear')
 
 ## Initialisation  -------
+
 address = "08:3A:F2:6E:29:CA"
 #address = "A4:CF:12:6B:60:1E"
 
@@ -120,6 +121,7 @@ print("=== Connected to ESP32 of the Minibar-Livello ===")
 
 while True:
 
+
     print("hhhhhhhhhhh")
     handle=0x0030
     val="h"
@@ -128,8 +130,10 @@ while True:
     #writeCharacteristic(handle, val, withResponse=True)
 #x    toSendBLE(5)
     
-    if p.waitForNotifications(0.5):
-            
+ 
+    if p.waitForNotifications(1.0):
+       
+
     # handleNotification() was called
         continue
     #    print("Waiting...")

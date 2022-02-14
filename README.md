@@ -1,7 +1,13 @@
 # Mini-bar Test-code
 
-This code is being developed and tested for the BLE part of the Minibar project.
-the Arduino and the pzthon code are able to send the weight of one Load cell Tag to the raspberry pi from the Esp32 , and the next target will be to achieve to add a new characteristic UUID under the same Service ID  adn send the vale of the other load cell over BLE. 
+This code is being developed and tested for the BLE part of the Minibar project.(ESP32 & Rpi)
+
+The Arduino and the python code are able to notify the weight of two Load cells and recieve to the raspberry pi from the Esp32.
+Another new characteristic has been added under the same service UUIID which has the read write function, so the python code is able to read the notified weight values using bit shifting technique, and using the Gatttool -I(manual),the Rpi is able to send data over BLE to the ESP32,which will be used later to reset the scales to zero.
+
+The next target will be to write the python code to write(send data) to ESP32 over BLE and finally merge this code into the existing python code to achieve automation of the up-down data transfer over BLE.
+
+
 ## Getting started
 
 To make it easy for you to get started with GitLab, here's a list of recommended next steps.
