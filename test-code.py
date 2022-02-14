@@ -117,9 +117,9 @@ ch_data_02 = p.readCharacteristic(ch_02.valHandle + 1)
 
 
 print("=== Connected to ESP32 of the Minibar-Livello ===")
-zz=0
+
 while True:
-#    zz=zz+1
+
     print("hhhhhhhhhhh")
     handle=0x0030
     val="h"
