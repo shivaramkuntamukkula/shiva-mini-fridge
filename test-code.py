@@ -24,7 +24,7 @@ class MyDelegate(btle.DefaultDelegate):
 
     def handleNotification(self, cHandle, data):
 
-        print("this reached here")
+        
 
 
 		# ... perhaps check cHandle
@@ -138,7 +138,7 @@ while True:
  #   p.writeCharacteristic(handle, g)
     #writeCharacteristic(handle, val, withResponse=True)
     if enbs==3 and enb==2:
-        print("waiting for notification"+str(enb))
+        #print("waiting for notification"+str(enb))
         if p.waitForNotifications(1.0):
             
             continue
