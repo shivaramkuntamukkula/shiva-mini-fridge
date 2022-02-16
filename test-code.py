@@ -1,16 +1,55 @@
 
 
+
 # GUI Python3 example on Raspberry Pi to handle notification from
 # ESP32 BLE_notify example.
 # To install bluepy for Python3:
 # $ sudo pip3 install bluepy
 
+from paho.mqtt import client as mqtt_client
+
 from bluepy import btle
 import time
 import os 
+import random
 
-xx=""
-enbs=0
+
+broker = 'broker.emqx.io'
+port = 1883
+topic = "mini"
+# generate client ID with pub prefix randomly
+client_id = f'python-mqtt-{random.randint(0, 100)}'
+username = 'meini'
+password = '1234'
+#------------MQTT-----------------------------------------------------
+
+def connect_mqtt() -> mqtt_client:
+    def on_connect(client, userdata, flags, rc):
+        if rc == 0:
+            print("Connected to MQTT Broker!")
+        else:
+            print("Failed to connect, return code %d\n", rc)
+
+    client = mqtt_client.Client(client_id)
+    client.username_pw_set(username, password)
+    client.on_connect = on_connect
+    client.connect(broker, port)
+    return client
+#client = connect_mqtt()
+
+def subscribe(client: mqtt_client):
+    def on_message(client, userdata, msg):
+        print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
+        time.sleep(2)
+    client.subscribe(topic)
+    client.on_message = on_message
+
+
+    
+#-------------------------------------------------------------------------------
+
+
+
 class MyDelegate(btle.DefaultDelegate):
     def __init__(self):
         btle.DefaultDelegate.__init__(self)
@@ -25,10 +64,7 @@ class MyDelegate(btle.DefaultDelegate):
 
     def handleNotification(self, cHandle, data):
 
-        
-
-
-		# ... perhaps check cHandle
+       		# ... perhaps check cHandle
 
 		# # ... process 'data'  
         if(cHandle==0x002a):
@@ -103,6 +139,7 @@ handle=0x0030     #handle of the write characteristics
 
 enb=1
 while True:
+    
     if enb==1:
         try:
            # print("Initialing connection with ESP32............")
@@ -130,9 +167,11 @@ while True:
             #if p.waitForNotifications(1.0):
             time.sleep(1)
             print("inside the try with CVS   "+ str(enb))
-            #    continue
+         #   client = connect_mqtt() #    continue
             
             enb=2
+            client = connect_mqtt()
+    
         except:
             print("something went wrong~!")
             enb=1
@@ -141,13 +180,18 @@ while True:
    #= bytes('start', 'utf-8')
  #   p.writeCharacteristic(handle, g)
     #writeCharacteristic(handle, val, withResponse=True)
-    if enb==2:
+        if enb==2:
+    #    print("enable..2 passed")
+       # while True:   
         #print("waiting for notification"+str(enb))
-        if p.waitForNotifications(1.0):
+#            subscribe(client)
+            if p.waitForNotifications(0.5):
+
          #   g= bytes('START/STOP CMD', 'utf-8')
           #  p.writeCharacteristic(handle, g)
            # print("Sending CMD to ESP32") 
-            continue
+           
+     #       continue
     
  #   if p.waitForNotifications(1.0):
        
@@ -156,3 +200,4 @@ while True:
   #      continue
     #    print("Waiting...")
     # Perhaps do something else here
+
