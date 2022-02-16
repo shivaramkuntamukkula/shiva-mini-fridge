@@ -1,4 +1,5 @@
 
+
 # GUI Python3 example on Raspberry Pi to handle notification from
 # ESP32 BLE_notify example.
 # To install bluepy for Python3:
@@ -104,12 +105,13 @@ enb=1
 while True:
     if enb==1:
         try:
+           # print("Initialing connection with ESP32............")
             p = btle.Peripheral(address)
             p.setDelegate(MyDelegate())
             enb=0
             print("Connected to ESP32 of the Minibar-Livello "+str(enb))
         except:
-            print("not connected")  
+            print("Not connected yet")  
             enb=1
             time.sleep(2)
     elif enb==0:
@@ -122,14 +124,14 @@ while True:
             p.writeCharacteristic(ch_02.valHandle + 1, setup_data)
             ch_data = p.readCharacteristic(ch.valHandle + 1)
             ch_data_02 = p.readCharacteristic(ch_02.valHandle + 1)
-            g= bytes('WRITE-TEST SUCCESS', 'utf-8')
+            g= bytes('start', 'utf-8')
             p.writeCharacteristic(handle, g)
             print("WRITE TO ESP CODE LINE PASSED WITHOUT ERROR")
             #if p.waitForNotifications(1.0):
             time.sleep(1)
             print("inside the try with CVS   "+ str(enb))
             #    continue
-            enbs=3
+            
             enb=2
         except:
             print("something went wrong~!")
@@ -139,11 +141,12 @@ while True:
    #= bytes('start', 'utf-8')
  #   p.writeCharacteristic(handle, g)
     #writeCharacteristic(handle, val, withResponse=True)
-    if enbs==3 and enb==2:
+    if enb==2:
         #print("waiting for notification"+str(enb))
         if p.waitForNotifications(1.0):
-            g= bytes('START/STOP CMD', 'utf-8')
-            p.writeCharacteristic(handle, g)            
+         #   g= bytes('START/STOP CMD', 'utf-8')
+          #  p.writeCharacteristic(handle, g)
+           # print("Sending CMD to ESP32") 
             continue
     
  #   if p.waitForNotifications(1.0):
