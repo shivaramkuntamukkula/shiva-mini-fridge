@@ -1,6 +1,7 @@
 
 
 
+
 # GUI Python3 example on Raspberry Pi to handle notification from
 # ESP32 BLE_notify example.
 # To install bluepy for Python3:
@@ -31,21 +32,35 @@ def connect_mqtt() -> mqtt_client:
             print("Failed to connect, return code %d\n", rc)
 
     client = mqtt_client.Client(client_id)
+   # print("1")
     client.username_pw_set(username, password)
+    #print("2")    
     client.on_connect = on_connect
+    #print("3")
     client.connect(broker, port)
+    #print("1")
     return client
 #client = connect_mqtt()
 
 def subscribe(client: mqtt_client):
+   # print("a")
     def on_message(client, userdata, msg):
         print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
-        time.sleep(2)
+        #time.sleep(0.5)
     client.subscribe(topic)
+    #print("b")
     client.on_message = on_message
+    #print("c")
+def run():
+    client = connect_mqtt()
+    print("p")
+    subscribe(client)
+    print("q")
+    print("subscribed")
+    print("r")
+    client.loop_forever()
+    print("s")
 
-
-    
 #-------------------------------------------------------------------------------
 
 
@@ -165,13 +180,13 @@ while True:
             p.writeCharacteristic(handle, g)
             print("WRITE TO ESP CODE LINE PASSED WITHOUT ERROR")
             #if p.waitForNotifications(1.0):
-            time.sleep(1)
+    #        time.sleep(1)
             print("inside the try with CVS   "+ str(enb))
          #   client = connect_mqtt() #    continue
             
             enb=2
-            client = connect_mqtt()
-    
+            
+            
         except:
             print("something went wrong~!")
             enb=1
@@ -180,18 +195,33 @@ while True:
    #= bytes('start', 'utf-8')
  #   p.writeCharacteristic(handle, g)
     #writeCharacteristic(handle, val, withResponse=True)
-        if enb==2:
+    
+       
+    if enb==2:
+        client = connect_mqtt()
+#        print("p")
+        subscribe(client)
+ #       print("q")
+        print("subscribed")
+  #      print("r")
+        client.loop_start()
+   #     print("s")
+        time.sleep(1)         
+#        while True:
     #    print("enable..2 passed")
        # while True:   
         #print("waiting for notification"+str(enb))
-#            subscribe(client)
-            if p.waitForNotifications(0.5):
-
+            #client = connect_mqtt()           
+            #subscribe(client)
+        client.loop_stop()       
+            #time.sleep(1)
+        if p.waitForNotifications(1):
+            
+            time.sleep(0.2)
          #   g= bytes('START/STOP CMD', 'utf-8')
           #  p.writeCharacteristic(handle, g)
            # print("Sending CMD to ESP32") 
-           
-     #       continue
+            continue
     
  #   if p.waitForNotifications(1.0):
        
