@@ -9,7 +9,10 @@ client.on_connect = on_connect
 client.connect("broker.emqx.io", 1883, 60)
 
 
-client.publish('mini', payload="START", qos=0, retain=False)
+for i in range(2):
+    client.publish('mini', payload="START", qos=0, retain=False)
+    time.sleep(1)
+
 
 #time.sleep(1)
 

@@ -27,7 +27,8 @@ password = '1234'
 def connect_mqtt() -> mqtt_client:
     def on_connect(client, userdata, flags, rc):
         if rc == 0:
-            print("Connected to MQTT Broker!")
+            print("MQTT.......")
+            #print("Connected to MQTT Broker!")
         else:
             print("Failed to connect, return code %d\n", rc)
 
@@ -196,17 +197,19 @@ while True:
  #   p.writeCharacteristic(handle, g)
     #writeCharacteristic(handle, val, withResponse=True)
     
-       
-    if enb==2:
+    if enb==2:   
+        
         client = connect_mqtt()
-#        print("p")
+        
+        
+         #print("p")
         subscribe(client)
  #       print("q")
-        print("subscribed")
+        print("subscribing....")
   #      print("r")
         client.loop_start()
    #     print("s")
-        time.sleep(1)         
+        time.sleep(0.5)         
 #        while True:
     #    print("enable..2 passed")
        # while True:   
