@@ -47,6 +47,10 @@ def subscribe(client: mqtt_client):
    # print("a")
     def on_message(client, userdata, msg):
         print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
+        if (msg.payload.decode())=="START":
+            print("sending RESET command to ESP32")
+            g= bytes('start', 'utf-8')
+            p.writeCharacteristic(handle, g)
         #time.sleep(0.5)
     client.subscribe(topic)
     #print("b")
@@ -177,7 +181,7 @@ while True:
             p.writeCharacteristic(ch_02.valHandle + 1, setup_data)
             ch_data = p.readCharacteristic(ch.valHandle + 1)
             ch_data_02 = p.readCharacteristic(ch_02.valHandle + 1)
-            g= bytes('start', 'utf-8')
+            g= bytes('CHECK', 'utf-8')
             p.writeCharacteristic(handle, g)
             print("WRITE TO ESP CODE LINE PASSED WITHOUT ERROR")
             #if p.waitForNotifications(1.0):
@@ -196,12 +200,10 @@ while True:
    #= bytes('start', 'utf-8')
  #   p.writeCharacteristic(handle, g)
     #writeCharacteristic(handle, val, withResponse=True)
-    
+
     if enb==2:   
-        
+
         client = connect_mqtt()
-        
-        
          #print("p")
         subscribe(client)
  #       print("q")
@@ -219,15 +221,13 @@ while True:
         client.loop_stop()       
             #time.sleep(1)
         if p.waitForNotifications(1):
-            
+
             time.sleep(0.2)
          #   g= bytes('START/STOP CMD', 'utf-8')
           #  p.writeCharacteristic(handle, g)
            # print("Sending CMD to ESP32") 
             continue
-    
  #   if p.waitForNotifications(1.0):
-       
 
     # handleNotification() was called
   #      continue

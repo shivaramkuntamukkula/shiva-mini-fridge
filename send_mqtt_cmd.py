@@ -10,7 +10,7 @@ client.connect("broker.emqx.io", 1883, 60)
 
 
 for i in range(2):
-    client.publish('mini', payload="START", qos=0, retain=False)
+    client.publish('mini', payload="START RASPBERRY PI MINIBAR", qos=0, retain=False)
     time.sleep(1)
 
 
